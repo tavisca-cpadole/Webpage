@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+}
+
+
+</style>
+</head>
+<body>
+<header>
+ <img src="batman.png" width="150px" height="80px">
+</header>
+<ul>
+  <li><a class="active" href="Home.html">Todo</a></li>
+  <li><a href="User.html">User</a></li>
+  <li><a href="Login.html">Login</a></li>
+</ul>
+
+<div style="">
+<center>
+<h1>Login</h1>
+<form method="POST" onsubmit="login();" autocomplete="off">
+<input type="text" id="username" placeholder="Username" style="padding:10px;"><br><br>
+<input type="password" id='password' placeholder="Password" style="padding:10px;"><br><br>
+<input type="submit" value="Login">
+</form>
+</center>
+
+<footer>
+  <a href="About.html">About Us</a> <a href="#">Contact Us</a>
+</footer>
+<script>
+function login()
+{
+if(document.getElementById('username').value=="admin" && document.getElementById('password').value=="admin")
+{
+alert("Welcome");
+}
+else
+{
+alert("Invalid Input");
+}
+return false;
+};
+</script>
+</div>
+
+</body>
+</html>
