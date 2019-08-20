@@ -73,12 +73,12 @@ input {
 <div style="height:1000px;">
 <center>
 <img src="user1.png" width="200px" height="200px">
-<form autocomplete="off">
-<br><br>
-<input type="text" id='name' name='name' placeholder='Enter name' required><br><br>
+<form autocomplete="off" onsubmit='frmSubmit(this,event)' id='frmid'>
+
+<input type="text" id='name' name='name' placeholder='Enter name' required>
 <input type="radio" id='male' name='gender' > <span>Male</span>
-<input type="radio" id='female' name='gender'> <span>Female</span><br><br>
-<input type="number" id='age' name='age' value=18 min=18 max=100 required><br><br>
+<input type="radio" id='female' name='gender'> <span>Female</span>
+<input type="number" id='age' name='age' value=18 min=18 max=100 required>
 <textarea id="address" placeholder="Enter address" name="address" rows="6" cols="30" required>
 </textarea><br><br>
 <input type="submit" value="Submit">
@@ -89,7 +89,27 @@ input {
   <p>Copyright Tim Berner Lee</p>
 </footer>
 <script>
-
+function frmSubmit(ref,e)
+{
+e.preventDefault();
+var id=ref.getAttribute('id');
+var elements = document.querySelectorAll("#"+id+" input,textarea")
+ for (var i = 0, element; element = elements[i++];) {
+    if (element.type === "text")
+    {
+		var regex = /\d/g;
+		if(regex.test(element.value))
+			console.log('Invalid Input (contains numeric value)');
+	}
+	
+	if (element.type === "textarea")
+    {
+		if(element.value.length<5)
+			console.log('Invalid Input (Address too short!)');
+	}
+}
+ 
+};
 </script>
 </div>
 

@@ -82,15 +82,87 @@ li a:hover:not(.active) {
 
 
 
-ol {
-  list-style: none;
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  margin-top:10px;
+  table-layout: fixed;
 }
-ol>li {
-  padding: 10px;
 
-  border-radius:20px;
-  width:40%;
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
 }
+
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+
+  table caption {
+    font-size: 1.3em;
+  }
+  
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
+
 </style>
 
 <meta charset="utf-8">
@@ -109,8 +181,15 @@ ol>li {
 </nav>
 <div style="margin-left:40%;margin-top:5%;">
 <input type='text' id='item' placeholder='Enter item'> <button class='addbtn' onclick="addTodo();">Add</button>
-<ol id="todoList">
-</ol>
+
+<table id="todoList">
+<tr>
+<th>To Do List</th>
+<th>Action</th>
+</tr>
+</table>
+
+
 
 </div>
 <footer>
@@ -123,7 +202,14 @@ function addTodo() {
   var item=document.getElementById("item");
   var todo=document.getElementById("todoList");
   if(item.value!="" && item!=null){
-    todo.innerHTML += '<li> <span id='+count+'>' + item.value + '</span> <button class="deletebtn" onclick="Delete(this);">X</button> <button class="updatebtn" onclick="Update('+count+');">Update</button> </li>';
+    
+	var row = todo.insertRow();
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1)
+	cell1.innerHTML=item.value;
+	cell1.setAttribute('id',count);
+	cell2.innerHTML= '<button class="deletebtn" onclick="Delete(this);">X</button> <button class="updatebtn" onclick="Update('+count+');">Update</button> ';
+	//todo.innerHTML += '<li> <span id='+count+'>' + item.value + '</span> <button class="deletebtn" onclick="Delete(this);">X</button> <button class="updatebtn" onclick="Update('+count+');">Update</button> </li>';
 	count++;
   }
   else{
@@ -134,12 +220,15 @@ function addTodo() {
 
 function Delete(e)
 {
-e.parentNode.parentNode.removeChild(e.parentNode);
+//console.log(e.parentElement.parentElement.nodeName);
+e.parentElement.parentElement.parentElement.removeChild(e.parentElement.parentElement);
+//e.parentNode.parentNode.removeChild(e.parentNode);
 }
 
 function Update(id)
 {
-document.getElementById(id).innerHTML=document.getElementById('item').value;
+//console.log(document.getElementById(id).innerHTML);
+document.getElementById(id).innerHTML=prompt("Enter new item",document.getElementById('item').value);
 }
 </script>
 </body>
