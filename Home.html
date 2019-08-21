@@ -180,7 +180,7 @@ table th {
 </ul>
 </nav>
 <div style="margin-left:40%;margin-top:5%;">
-<input type='text' id='item' placeholder='Enter item'> <button class='addbtn' onclick="addTodo();">Add</button>
+<input type='text' id='item' onkeyup='search();' onfocusout="clearTable()" placeholder='Enter item'> <button class='addbtn' onclick="addTodo();" >Add</button>
 
 <table id="todoList">
 <tr>
@@ -215,6 +215,7 @@ function addTodo() {
   else{
 	alert("Invalid Input");
   }
+  document.getElementById('item').value="";
 };
 
 
@@ -229,6 +230,41 @@ function Update(id)
 {
 //console.log(document.getElementById(id).innerHTML);
 document.getElementById(id).innerHTML=prompt("Enter new item",document.getElementById('item').value);
+}
+
+
+function search()
+{
+var t=document.getElementById("todoList");
+
+for (var r = 1; r < t.rows.length; r++) {
+
+		if(t.rows[r].cells[0].innerHTML.includes(document.getElementById('item').value) && document.getElementById('item').value!="")
+		{
+			t.rows[r].style.backgroundColor='red';
+        //console.log(t.rows[r].cells[0].innerHTML);
+		}
+		else{
+			t.rows[r].style.backgroundColor='white';
+		}
+
+}
+
+};
+
+function clearTable()
+{
+var t=document.getElementById("todoList");
+	for (var r = 1; r < t.rows.length; r++) {
+
+		if(t.rows[r].cells[0].innerHTML.includes(document.getElementById('item').value) && document.getElementById('item').value!="")
+		{
+			t.rows[r].style.backgroundColor='white';
+        //console.log(t.rows[r].cells[0].innerHTML);
+		}
+
+}
+
 }
 </script>
 </body>

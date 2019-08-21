@@ -58,6 +58,8 @@ input {
   padding: 7px;
   font-size: 14px;
 }
+
+
 </style>
 </head>
 <body>
@@ -71,18 +73,20 @@ input {
 </ul>
 
 <div style="height:1000px;">
-<center>
+<center class='container'>
 <img src="user1.png" width="200px" height="200px">
 <form autocomplete="off" onsubmit='frmSubmit(this,event)' id='frmid'>
-
-<input type="text" id='name' name='name' placeholder='Enter name' required>
-<input type="radio" id='male' name='gender' > <span>Male</span>
-<input type="radio" id='female' name='gender'> <span>Female</span>
-<input type="number" id='age' name='age' value=18 min=18 max=100 required>
+<br><br>
+<input type="text" id='name' name='name' placeholder='Enter name'  required><br><br>
+<input type="radio" id='male' name='gender' > <span>Male</span><br><br>
+<input type="radio" id='female' name='gender'> <span>Female</span><br><br>
+<input type="number" id='age' name='age' value=18 min=18 max=100 required><br><br>
 <textarea id="address" placeholder="Enter address" name="address" rows="6" cols="30" required>
 </textarea><br><br>
 <input type="submit" value="Submit">
 </form> 
+
+
 </center>
 <footer>
   <a href="About.html">About Us</a> <a href="#">Contact Us</a>
@@ -110,6 +114,11 @@ var elements = document.querySelectorAll("#"+id+" input,textarea")
 }
  
 };
+
+function Reset(abc)
+{
+console.log("abc");
+}
 </script>
 </div>
 
