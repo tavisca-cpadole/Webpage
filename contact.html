@@ -3,39 +3,102 @@
 <head>
 <style>
 
+.wrapper{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+}
+
+
+.rain {
+  border-left: 2px solid;
+  height: 35px;
+  
+  	-moz-border-image: -moz-linear-gradient(top, rgba(125,171,171, 0), #7dabab, #7dabab, rgba(125,171,171, 0)) 1 100%;/* FF3.6+ */
+ 
+	-webkit-border-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(125,171,171, 0)), color-stop(33.33333%, #7dabab),
+ 
+	color-stop(66.66667%, #7dabab), color-stop(100%, rgba(0, 0, 0, 0))) 1 100%;/* Chrome,Safari4+ */
+ 
+	-webkit-border-image: -webkit-linear-gradient(top, rgba(125,171,171, 0), #7dabab, #7dabab, rgba(125,171,171, 0)) 1 100%;/* Chrome10+,Safari5.1+ */
+ 
+	-o-border-image: -o-linear-gradient(top, rgba(125,171,171, 0), #7dabab, #7dabab, rgba(0, 0, 0, 0)) 1 100%;/* Opera 11.10+ */
+ 
+	-ms-border-image: -ms-linear-gradient(top,  rgba(210,241,241,0.2) 0%,rgba(152,208,208,0.48) 10%,rgba(125,171,171,1) 50%,
+ 
+    rgba(125,171,171,0.42) 85%,rgba(210,241,241,0.2) 100%); /* IE10+ */
+ 
+	border-image: linear-gradient(top, rgba(125,171,171, 0), #7dabab, #7dabab, rgba(125,171,171, 0)) 1 100%;/* W3C */
+}
 </style>
 </head>
 <body>
-<button onclick="run()">CLick</button>
+
 <script>
+var arrofDrop= new Array();
 var x,y;
+var count=1;
 function run() {
 
    
    x=getX();
    y=getY();
    var p=document.createElement('div');
-   p.innerHTML=".";
-   p.setAttribute('position','absolute');
-   p.setAttribute('top',y+"px");
-   p.setAttribute('max-width','10px');
-   p.setAttribute('left',x+"px");
+   p.setAttribute('id',count);
+   p.setAttribute('class','wrapper');
 
-   document.body.appendChild(p);        
+var line = document.createElement('div');
+line.setAttribute('class','rain');
+
+document.body.appendChild(p); 
+
+p.appendChild(line);   
+document.getElementById(count).style.top=y+"px";   
+document.getElementById(count).style.left=x+"px";   
+arrofDrop.push(count);
+count++;
+
 	//document.getElementById("main").style.paddingTop=y+"px";
 	//document.getElementById("main").style.paddingLeft=x+"px";
+	
 };
 
+function moveDrop()
+{
+setInterval(function(){
+
+for(var i=0;i<arrofDrop.length;i++){
+	var y=parseInt((document.getElementById(arrofDrop[i]).style.top).replace('px',''));
+	if(y>(screen.height-260))
+	{
+	document.getElementById(arrofDrop[i]).remove();
+	arrofDrop.splice(arrofDrop.indexOf(arrofDrop[i]), 1);
+	}
+	else
+	{
+	document.getElementById(arrofDrop[i]).style.top=y+20 +"px";
+	}
+	
+}
+//arrofDrop.shift();
+}, 100);
+}
 function getX()
 {
-return Math.floor(Math.random()*screen.width);
+return Math.floor(Math.random()*(screen.width-50));
 }
 
 function getY()
 {
-return Math.floor(Math.random()*screen.height);
+return Math.floor(Math.random()*(screen.height-200));
 }
 
+function letRain()
+{
+setInterval(function(){run()}, 5);
+}
+letRain();
+moveDrop();
 </script>
 </div>
 
