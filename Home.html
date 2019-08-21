@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+}
+
+body {
+  margin: 0;
+  background: rgba(172,166,255,1);
+
+background: linear-gradient(to right, #f6f1d3, #648880, #293f50);;
+}
+
+input {
+  background-color: #FFFFFF;
+  border: 1px solid #D6D9DC;
+  border-radius: 3px;
+  padding: 7px;
+  font-size: 14px;
+}
+.addbtn{
+color: white;
+border-radius: 4px;
+text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+background: rgb(66, 184, 221); 	
+font-size: 110%;
+}
+.updatebtn{
+color: white;
+border-radius: 4px;
+text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+background: rgb(223, 117, 20); 	
+font-size: 85%;
+}
+.deletebtn{
+color: white;
+border-radius: 4px;
+text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+background: rgb(202, 60, 60); 
+font-size: 85%;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: auto;
+  overflow: auto;
+  border-radius:4px;
+ 
+}
+
+li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+li a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+li a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  margin-top:10px;
+  table-layout: fixed;
+}
+
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+
+  table caption {
+    font-size: 1.3em;
+  }
+  
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
+
+</style>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<header>
+ <img src="batman.png" width="150px" height="80px" style="margin-top:1%;" class="center">
+</header>
+<nav>
+<ul>
+  <li><a class="active" href="Home.html">Todo</a></li>
+  <li><a href="User.html">User</a></li>
+  <li><a href="Login.html">Login</a></li>
+</ul>
+</nav>
+<div style="margin-left:40%;margin-top:5%;">
+<input type='text' id='item' onkeyup='search();' onfocusout="clearTable()" placeholder='Enter item'> <button class='addbtn' onclick="addTodo();" >Add</button>
+
+<table id="todoList">
+<tr>
+<th>To Do List</th>
+<th>Action</th>
+</tr>
+</table>
+
+
+
+</div>
+<footer>
+  <a href="About.html">About Us</a> <a href="contact.html">Contact Us</a>
+  <p>Copyright Tim Berner Lee</p>
+</footer>
+<script>
+var count=0;
+function addTodo() {
+  var item=document.getElementById("item");
+  var todo=document.getElementById("todoList");
+  if(item.value!="" && item!=null){
+    
+	var row = todo.insertRow();
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1)
+	cell1.innerHTML=item.value;
+	cell1.setAttribute('id',count);
+	cell2.innerHTML= '<button class="deletebtn" onclick="Delete(this);">X</button> <button class="updatebtn" onclick="Update('+count+');">Update</button> ';
+	//todo.innerHTML += '<li> <span id='+count+'>' + item.value + '</span> <button class="deletebtn" onclick="Delete(this);">X</button> <button class="updatebtn" onclick="Update('+count+');">Update</button> </li>';
+	count++;
+  }
+  else{
+	alert("Invalid Input");
+  }
+  document.getElementById('item').value="";
+};
+
+
+function Delete(e)
+{
+//console.log(e.parentElement.parentElement.nodeName);
+e.parentElement.parentElement.parentElement.removeChild(e.parentElement.parentElement);
+//e.parentNode.parentNode.removeChild(e.parentNode);
+}
+
+function Update(id)
+{
+//console.log(document.getElementById(id).innerHTML);
+document.getElementById(id).innerHTML=prompt("Enter new item",document.getElementById('item').value);
+}
+
+
+function search()
+{
+var t=document.getElementById("todoList");
+
+for (var r = 1; r < t.rows.length; r++) {
+
+		if(t.rows[r].cells[0].innerHTML.includes(document.getElementById('item').value) && document.getElementById('item').value!="")
+		{
+			t.rows[r].style.backgroundColor='red';
+        //console.log(t.rows[r].cells[0].innerHTML);
+		}
+		else{
+			t.rows[r].style.backgroundColor='white';
+		}
+
+}
+
+};
+
+function clearTable()
+{
+var t=document.getElementById("todoList");
+	for (var r = 1; r < t.rows.length; r++) {
+
+		if(t.rows[r].cells[0].innerHTML.includes(document.getElementById('item').value) && document.getElementById('item').value!="")
+		{
+			t.rows[r].style.backgroundColor='white';
+        //console.log(t.rows[r].cells[0].innerHTML);
+		}
+
+}
+
+}
+</script>
+</body>
+</html>
