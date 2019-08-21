@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+</style>
+</head>
+<body>
+<button onclick="run()">CLick</button>
+<script>
+var x,y;
+function run() {
+
+   
+   x=getX();
+   y=getY();
+   var p=document.createElement('div');
+   p.innerHTML=".";
+   p.setAttribute('position','absolute');
+   p.setAttribute('top',y+"px");
+   p.setAttribute('max-width','10px');
+   p.setAttribute('left',x+"px");
+
+   document.body.appendChild(p);        
+	//document.getElementById("main").style.paddingTop=y+"px";
+	//document.getElementById("main").style.paddingLeft=x+"px";
+};
+
+function getX()
+{
+return Math.floor(Math.random()*screen.width);
+}
+
+function getY()
+{
+return Math.floor(Math.random()*screen.height);
+}
+
+</script>
+</div>
+
+</body>
+</html>
